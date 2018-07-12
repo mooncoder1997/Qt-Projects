@@ -22,8 +22,10 @@ git clone https://github.com/emqtt/qmqtt
 
 3.编译完成后会生成一个Debug目录，如下图所示：
 ![编译输出目录.png](https://upload-images.jianshu.io/upload_images/9969251-8917b793c3c9124b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 4.新建一个工程，打开该工程的目录文件夹，将上一步Debug目录下的“include“文件夹、”lib“文件夹复制到新建的工程目录，将qmqtt源码文件夹下”src/mqtt“文件夹复制到新建的工程目录。新建的工程文件夹如下图所示：
 ![新建工程目录.png](https://upload-images.jianshu.io/upload_images/9969251-6830b146df7bbe2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 5.工程配置
 在Qt中打开新建的工程，在.pro文件中加入
 ```
@@ -31,11 +33,14 @@ QT += network
 ```
 右键点击工程 -> 添加库，选择外部库
 ![选择外部库.png](https://upload-images.jianshu.io/upload_images/9969251-482edd47986f6816.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 点击下一步，点击“浏览”，定位到工程目录下的lib文件夹
 ![lib文件夹.png](https://upload-images.jianshu.io/upload_images/9969251-7a7daf20952e43aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 选择.a文件
 ![添加外部库.png](https://upload-images.jianshu.io/upload_images/9969251-e67e4bb6d224e359.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![汇总.png](https://upload-images.jianshu.io/upload_images/9969251-4350eea7346a8194.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 将lib目录下的两个.a文件均以此方式添加为外部库。
 
 在mainwindow.h中加入头文件引用
@@ -92,4 +97,5 @@ client->publish(msg);
 ```
 7.MQTT客户端测试
 ![MQTT测试.png](https://upload-images.jianshu.io/upload_images/9969251-6f4482fa5a0f4bc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 [点击下载该工程代码](https://github.com/mooncoder1997/Qt-Projects/tree/master/MQTT_Client)
