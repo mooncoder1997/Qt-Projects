@@ -38,6 +38,7 @@ QT += network
 ![lib文件夹.png](https://upload-images.jianshu.io/upload_images/9969251-7a7daf20952e43aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 选择.a文件
+
 ![添加外部库.png](https://upload-images.jianshu.io/upload_images/9969251-e67e4bb6d224e359.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![汇总.png](https://upload-images.jianshu.io/upload_images/9969251-4350eea7346a8194.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
