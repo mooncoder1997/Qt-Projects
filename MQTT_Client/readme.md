@@ -32,6 +32,7 @@ git clone https://github.com/emqtt/qmqtt
 QT += network
 ```
 右键点击工程 -> 添加库，选择外部库
+
 ![选择外部库.png](https://upload-images.jianshu.io/upload_images/9969251-482edd47986f6816.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 点击下一步，点击“浏览”，定位到工程目录下的lib文件夹
@@ -97,6 +98,7 @@ QMQTT::Message msg(0, topicPub.toLatin1(), messagePub.toLatin1());
 client->publish(msg);
 ```
 7.MQTT客户端测试
+
 ![MQTT测试.png](https://upload-images.jianshu.io/upload_images/9969251-6f4482fa5a0f4bc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 [点击下载该工程代码](https://github.com/mooncoder1997/Qt-Projects/tree/master/MQTT_Client)
