@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1127</width>
-    <height>584</height>
+    <width>1330</width>
+    <height>1144</height>
    </rect>
   </property>
   <property name="font">
@@ -25,25 +25,41 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>1091</width>
-      <height>511</height>
+      <width>1291</width>
+      <height>1071</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Tab 1</string>
+      <string>基础数据</string>
      </attribute>
      <widget class="QTextEdit" name="data_frame">
       <property name="geometry">
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>831</width>
-        <height>411</height>
+        <width>1031</width>
+        <height>91</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="all_data">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>120</y>
+        <width>1251</width>
+        <height>801</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
       </property>
      </widget>
     </widget>
@@ -127,6 +143,37 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>340</y>
+        <width>121</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PushButton</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>雷达图像</string>
+     </attribute>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>1000</width>
+        <height>1000</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -135,7 +182,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1127</width>
+     <width>1330</width>
      <height>23</height>
     </rect>
    </property>

@@ -10,7 +10,7 @@ void laser_frame_decoder::decoder_data(QByteArray buf)
 {
     int tmp=0;
    data_n=(buf[6]&0x00ff)*256+buf[7]&0x00ff;
-   data_n =((data_n-5)/3);
+   data_n =((data_n-15)/3);
    laser_spd=buf[8]&0x00ff;
    angle_offset=(buf[9]&0x00ff);
    angle_offset=angle_offset*256;
@@ -20,12 +20,14 @@ void laser_frame_decoder::decoder_data(QByteArray buf)
 
    start_angle=start_angle*256;
    tmp=buf[12]&0x00ff;
-           start_angle=(start_angle) +tmp;
+    start_angle=(start_angle) +tmp;
+data_index=start_angle/2250;
+
 
    for(int i=0;i<data_n;i++)
    {
-     distance[i]=(buf[11+i*3]&0x00ff)*256+ (buf[11+i*3+1]&0x00ff);
-       signal_data[i]=  (buf[11+i*3+2]&0x00ff);
+     distance[i+data_index*data_n]=(buf[13+i*3]&0x00ff)*256+ (buf[13+i*3+1]&0x00ff);
+       signal_data[i+data_index*data_n]=  (buf[13+i*3+2]&0x00ff);
 
    } //end of get dat inf
 

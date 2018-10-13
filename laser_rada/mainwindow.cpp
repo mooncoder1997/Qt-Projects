@@ -12,17 +12,41 @@
 #include <QProcess>
 #include "laser_frame_decoder.h"
 
+
+
+#include <QtGui/QPixmap>
+#include <QtGui/QPainter>
+
+
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
      serial = new QSerialPort;
-     QTimer *timer = new QTimer( );//新建定时器
-     connect(timer,SIGNAL(timeout()),this,SLOT(timerUpDate()));//关联定时器计满信号和相应的槽函数
-     timer->start(1000);
+    mytimer = new QTimer( );//新建定时器
+     connect(mytimer,SIGNAL(timeout()),this,SLOT(timerUpDate()));//关联定时器计满信号和相应的槽函数
+
 data_frames="";
     // rec_buf=new QByteArray("");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
@@ -51,6 +75,59 @@ QDateTime dateTime = QDateTime::currentDateTime();
 
 ui->data_frame->setText(data_frames);
 
+
+
+///////////////////////////////display laser data
+///
+
+QString str_tmp="";
+
+int width=1000;
+int height=1000;
+uchar* data24 = new uchar[ width * height*3];
+  laser_image = QImage(data24, width, height, QImage::Format_RGB888); //封装QImage
+
+for (int i=0;i<  width * height*3;i++)
+{
+  data24[i]=100;
+}
+QPainter painter;//注意不要加入(this)，this指针直接在mainwindow绘图
+
+painter.begin(&laser_image);//这句话把图像和绘图结合起来了。
+QPen pen(Qt::yellow);
+painter.setPen(pen);
+painter.drawRect(500-10,500-10,10,10);
+
+pen.setColor(Qt::green);
+painter.setPen(pen);
+
+
+for(int i=9;i<400;i++)
+{
+
+  float xita=(i/my_laser_data.data_n)*22.5+(i%my_laser_data.data_n)*(22.5/my_laser_data.data_n);
+  xita=(2*3.1415926*xita)/360;
+  float r=500;
+  r=my_laser_data.distance[i]*0.01;
+  int x=r*cos(xita) ;
+  int y=r*sin(xita) ;
+painter.drawPoint(x+500,y+500);
+
+ str_tmp=str_tmp+"\t"+QString::number(i, 'f', 0)+"="+QString::number(my_laser_data.distance[i], 'f', 0);
+}
+
+ui->all_data->setText(str_tmp);
+
+
+
+
+   painter.end();
+
+   QImage newImg = laser_image.scaled(ui->label->width(), ui->label->height());//image是老图像。newImg是缩放后的新图像。
+   ui->label->setPixmap(QPixmap::fromImage(newImg));
+
+
+
 //在标签上显示时间
 
 }
@@ -71,6 +148,12 @@ int   MainWindow::CRC16(QByteArray buf1)
     }
     return Checksum&0x00ffff;
 }
+
+
+
+
+
+
 
 
 void MainWindow::Read_Data()
@@ -128,19 +211,24 @@ void MainWindow::Read_Data()
                   data_frames_now=buf1;
 
 
-                  laser_frame_decoder  aa;
-                  aa.decoder_data( data_frames_now);
+
+                  my_laser_data.decoder_data( data_frames_now);
                   QString myinf="";
                      str_tmp="";
-                  myinf=myinf.number(aa.data_n);
-                  myinf=myinf+ "  start_angle="+str_tmp.number(aa.start_angle*0.01);
-                  myinf=myinf+ "  angle_offset="+str_tmp.number(aa.angle_offset*0.01);
-                  myinf=myinf+ "  angle ="+str_tmp.number((aa.start_angle+aa.angle_offset)*0.01);
+                  myinf=myinf.number(my_laser_data.data_n);
+                  myinf=myinf+ "  index="+str_tmp.number(my_laser_data.data_index);
 
+                  myinf=myinf+ "  start_angle="+str_tmp.number(my_laser_data.start_angle*0.01);
+                  myinf=myinf+ "  angle_offset="+str_tmp.number(my_laser_data.angle_offset*0.01);
+                  myinf=myinf+ "  angle ="+str_tmp.number((my_laser_data.start_angle+my_laser_data.angle_offset)*0.01);
 
-
-                //  QString myinf=aa.print_inf();
                   ui->rec_str_2->append(myinf);
+
+
+
+
+
+
 
                   }//  check1 ==check2
 
@@ -162,11 +250,7 @@ void MainWindow::Read_Data()
 
 
 
-        for(int i=0;i<rec_buf.length();i++)
-        {
 
-
-        }// end of deal rec buf
 
     }
 
@@ -220,4 +304,9 @@ void MainWindow::on_get_data_inf_clicked()
   //  QString myinf=aa.print_inf();
     ui->rec_str_2->setText(myinf);
 
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    mytimer->start(200);
 }
